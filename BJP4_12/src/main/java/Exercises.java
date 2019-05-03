@@ -1,12 +1,16 @@
+import static java.lang.Integer.parseInt;
+
 public class Exercises {
     public static void main(String[] args) {
-        int i = 122344;
-        int j = 12234;
+        int i = 1234567;
+        int j = 67;
         System.out.println(digitMatch(i, j));
 
     }
 
-    public static int digitMatch(int d1, int d2) throws NumberFormatException {
+    public static int digitMatch(int d1, int d2) throws IllegalArgumentException {
+        // Ch. 12 Ex. 10
+        
         // Write a recursive method digitMatch that accepts two non-negative
         // integers as parameters and that returns the number of digits that
         // match between them. Two digits match if they are equal and have the
@@ -44,28 +48,39 @@ public class Exercises {
         String s2 =  String.valueOf(d2);
 
         if (d1 < 0 || d2 < 0) {
+            // At least one integer is negative
             throw new IllegalArgumentException();
-        } else {
-            if (s1.length() == 1 || s2.length() == 1) {
-                if (s1.charAt(0) == s2.charAt(0)) {
-                    return 1;
-                } else {
-                    return 0;
-                }
+        }
+
+        if ((s1.length() == 1 && s2.length() == 1) && s1.charAt(0) == s2.charAt(0)) {
+            // The integers are both one digit long AND are equal to each other
+            return 1;
+        } else if (s1.length() == 1 && s2.length() == 1){
+            return 0;
+        }
+
+        if (s1.length() > s2.length()) {
+            // int 1 has more digits than int 2, subtract a digit from int 1
+            s1 = s1.substring(1);
+            return digitMatch(Integer.parseInt(s1), d2);
+
+        } else if (s1.length() < s2.length()) {
+            // int 2 has more digits than int 1, subtract a digit from int 2
+            s2 = s2.substring(1);
+            return digitMatch(d1, Integer.parseInt(s2));
 
         } else {
-                // System.out.println("length1 " + s1.length());
-                // System.out.println(s1.charAt(s1.length() - 1));
-                // System.out.println("length2 " + s2.length());
-                // System.out.println(s2.charAt(s2.length() - 1));
-                if (s1.charAt(s1.length() - 1) == s2.charAt(s2.length() - 1)) {
-                    System.out.println("yes");
-                    return 1 + digitMatch(Integer.parseInt(s1.substring(0, s1.length() - 1)) - 2, Integer.parseInt(s2.substring(0, s2.length() - 1)) - 2);
-                } else {
-                    System.out.println("nada");
-                }
+            int recursive = digitMatch(Integer.parseInt(s1.substring(0,
+                    s1.length() - 1)), Integer.parseInt(s2.substring(0,
+                    s2.length() - 1)));
+
+            if (s1.charAt(s1.length() - 1) == s2.charAt(s2.length() - 1)) {
+                // last digits of ints 1 and 2 are equal, add one to the count
+                return 1 + recursive;
+
+            } else {
+                return recursive;
             }
-        return 0;
+        }
     }
-}
 }
