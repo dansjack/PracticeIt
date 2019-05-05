@@ -2,16 +2,19 @@ import static java.lang.Integer.parseInt;
 
 public class Exercises {
     public static void main(String[] args) {
-        // ***Ex 10.***
+        // ***Ex. 10.***
         // int i = 1234567;
         // int j = 67;
         // System.out.println(digitMatch(i, j));
 
-        // ***Ex 11.***
+        // ***Ex. 11.***
         // System.out.println(repeat("hi ho! ", 5));
 
-        // ***Ex 12.***
-        System.out.println(isReverse("CSE143", "341esc"));
+        // ***Ex. 12.***
+        // System.out.println(isReverse("CSE143", "341esc"));
+
+        // ***Ex. 13 ***
+        System.out.println(indexOf("Barack Obama", "McCain"));
 
     }
 
@@ -189,6 +192,23 @@ public class Exercises {
 
         } else {
             return false;
+        }
+    }
+
+    public static int indexOf(String string1, String string2) {
+        // *********** INCOMPLETE **********
+
+        // returns the starting index of the first occurrence of the second
+        // String inside the first String (or -1 if not found).
+
+        if (string1.length() < string2.length()) {
+        }
+
+        if (string2.equals(string1.substring(0, string2.length()))) {
+            return 0;
+        } else {
+            return 1 + indexOf(string1.substring(1), string2);
+
         }
     }
 }
