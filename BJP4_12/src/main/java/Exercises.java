@@ -2,6 +2,22 @@ import static java.lang.Integer.parseInt;
 
 public class Exercises {
     public static void main(String[] args) {
+
+        // ***Ex. 3 ***
+        //writeSequence(5);
+
+        // ***Ex. 6 ***
+        // writeSquares(8);
+
+        // ***Ex. 7 ***
+        // writeChars(4);
+
+        // ***Ex. 8 ***
+        // multiplyEvens(4); 384 2 * 4 * 6 * 8 = 384
+
+        // ***Ex. 9 ***
+        // multiplyEvens(4); 384 2 * 4 * 6 * 8 = 384
+
         // ***Ex. 10.***
         // int i = 1234567;
         // int j = 67;
@@ -14,8 +30,149 @@ public class Exercises {
         // System.out.println(isReverse("CSE143", "341esc"));
 
         // ***Ex. 13 ***
-        System.out.println(indexOf("Barack Obama", "McCain"));
+        //System.out.println(indexOf("Barack Obama", "BAR"));
 
+        // ***Ex. 13 ***
+        evenDigits(4109);
+
+    }
+
+    public static void writeSequence(int n) {
+        String out = (n + 1) / 2 + " ";
+        if (n < 1) {
+            throw new IllegalArgumentException();
+        } else if (n == 1) {
+            System.out.println("1 ");
+        } else {
+            System.out.println(out);
+            if (n != 2) {
+                writeSequence(n - 2);
+            }
+            System.out.println(out);
+        }
+    }
+
+
+    public static void writeSquares(int n) {
+        // Ex 12.6
+        if (n < 1) {
+            throw new IllegalArgumentException();
+        } else if (n == 1) {
+            System.out.print("1");
+        } else {
+            if (n % 2 == 0) {
+                // n is even, print squares in ascending order
+                writeSquares(n - 1);
+                System.out.print(", " + n * n);
+            } else {
+                // n is odd, print squares in descending order
+                System.out.print(n * n + ", ");
+                writeSquares(n - 1);
+            }
+        }
+    }
+
+    public static void writeChars(int n) {
+        // Ex 12.17
+        // Write a method writeChars that accepts an integer parameter n and
+        // that prints out n characters as follows. The middle character of the
+        // output should always be an asterisk ("*"). If you are asked to write
+        // out an even number of characters, then there will be two asterisks in
+        // the middle ("**"). Before the asterisk(s) you should write out
+        // less-than characters ("<"). After the asterisk(s) you should write
+        // out greater-than characters (">").
+
+        // writeChars(1);	*
+        // writeChars(2);	**
+        // writeChars(3);	<*>
+        // writeChars(4);	<**>
+        // writeChars(5);	<<*>>
+        // writeChars(6);	<<**>>
+        // writeChars(7);	<<<*>>>
+        // writeChars(8);	<<<**>>>
+
+        // Your method should throw an IllegalArgumentException if passed a
+        // value less than 1. Note that the output does not advance to the next
+        // line.
+
+        if (n < 1) {
+            throw new IllegalArgumentException();
+        } else {
+            // if n greater than 1...
+            if (n % 2 == 0) {
+                // if n is even...
+                if (n == 2) {
+                    // base case: n is 2
+                    System.out.print("**");
+                } else {
+                    // recursive case:
+                    System.out.print("<");
+                    writeChars(n - 2);
+                    System.out.print(">");
+                }
+            } else {
+                // if n is odd...
+                if (n == 1) {
+                    // base case: n is 1
+                    System.out.print("*");
+                } else {
+                    // recursive case:
+                    System.out.print("<");
+                    writeChars(n - 2);
+                    System.out.print(">");
+                }
+            }
+        }
+    }
+
+    public static int multiplyEvens(int n) {
+        // Ex 12.8
+
+        // Write a method multiplyEvens that returns the product of the first n
+        // even integers. For example:
+
+        // Call	          Output Reason
+        // multiplyEvens(1); 2	 2 = 2
+        // multiplyEvens(2); 8	 2 * 4 = 8
+        // multiplyEvens(3); 48	 2 * 4 * 6 = 48
+        // multiplyEvens(4); 384 2 * 4 * 6 * 8 = 384
+
+        // You should throw an IllegalArgumentException if passed a value less
+        // than or equal to 0.
+
+        if (n <= 0) {
+            throw new IllegalArgumentException();
+        } else {
+            if (n == 1) {
+                return 2;
+            } else {
+                return (n + n) * multiplyEvens(n - 1);
+            }
+        }
+    }
+
+    public static double sumTo(int n) {
+        // Ex. 12.9
+        // Write a method sumTo that accepts an integer parameter n and returns
+        // the sum of the first n reciprocals. In other words:
+
+        // sumTo(n) returns: 1 + 1/2 + 1/3 + 1/4 + ... + 1/n
+
+        // For example, the call of sumTo(2) should return 1.5. The method
+        // should return 0.0 if passed the value 0 and should throw an
+        // IllegalArgumentException if passed a value less than 0.
+
+        if (n < 0) {
+            throw new IllegalArgumentException();
+        } else {
+            if (n == 0) {
+                return 0.0;
+            } else if (n == 1) {
+                return 1;
+            } else {
+                return (double) 1/n + sumTo(n - 1);
+            }
+        }
     }
 
     public static int digitMatch(int d1, int d2) throws IllegalArgumentException {
@@ -196,19 +353,73 @@ public class Exercises {
     }
 
     public static int indexOf(String string1, String string2) {
-        // *********** INCOMPLETE **********
+        // Ch. 12 Ex. 13
 
-        // returns the starting index of the first occurrence of the second
-        // String inside the first String (or -1 if not found).
-
-        if (string1.length() < string2.length()) {
+        if (string2.length() > string1.length()) {
+            return -1;
         }
 
-        if (string2.equals(string1.substring(0, string2.length()))) {
-            return 0;
-        } else {
-            return 1 + indexOf(string1.substring(1), string2);
+        return indexOf(string1, string2, 0);
+    }
 
+    private static int indexOf(String string1, String string2, int count) {
+        String s1Sub = string1.substring(0, string2.length());
+
+        if (string2.equals(s1Sub)) {
+            return count;
+        } else if (string1.length() == 1){
+            return -1;
+        } else {
+            count++;
+            if (count > string1.length()) {
+                return -1;
+            }
+            return indexOf(string1.substring(1), string2, count);
         }
     }
+
+    public static int evenDigits(int n) {
+        // Ch. 12 Ex. 14
+        // INCOMPLETE
+
+        // Write a method evenDigits that accepts an integer parameter n and that
+        // returns the integer formed by removing the odd digits from n. The
+        // following table shows several calls and their expected return values:
+
+        // Call	                  Valued Returned
+        // evenDigits(8342116);	  8426
+        // evenDigits(4109);	    40
+        // evenDigits(8);	         8
+        // evenDigits(-34512);	   -42
+        // evenDigits(-163505);	   -60
+        // evenDigits(3052);	     2
+        // evenDigits(7010496);	    46
+        // evenDigits(35179);	     0
+        // evenDigits(5307);	     0
+        // evenDigits(7);	         0
+
+        // If a negative number with even digits other than 0 is passed to the
+        // method, the result should also be negative, as shown above when
+        // -34512 is passed. Leading zeros in the result should be ignored and
+        // if there are no even digits other than 0 in the number, the method
+        // should return 0, as shown in the last three outputs.
+        String nString = String.valueOf(n);
+        System.out.println(nString);
+
+
+        if (nString.indexOf('-') == 0) {
+            return evenDigits()
+        } else if (// digit){
+
+        }
+
+
+
+
+
+
+        return -1;
+    }
+
+
 }
