@@ -4,7 +4,7 @@ public class Exercises {
     public static void main(String[] args) {
 
         // ***Ex. 3 ***
-        //writeSequence(5);
+        // writeSequence(5);
 
         // ***Ex. 6 ***
         // writeSquares(8);
@@ -30,10 +30,10 @@ public class Exercises {
         // System.out.println(isReverse("CSE143", "341esc"));
 
         // ***Ex. 13 ***
-        //System.out.println(indexOf("Barack Obama", "BAR"));
+        // System.out.println(indexOf("Barack Obama", "BAR"));
 
-        // ***Ex. 13 ***
-        evenDigits(4109);
+        // ***Ex. 14 ***
+        System.out.println(evenDigits(4109));
 
     }
 
@@ -51,7 +51,6 @@ public class Exercises {
             System.out.println(out);
         }
     }
-
 
     public static void writeSquares(int n) {
         // Ex 12.6
@@ -380,7 +379,6 @@ public class Exercises {
 
     public static int evenDigits(int n) {
         // Ch. 12 Ex. 14
-        // INCOMPLETE
 
         // Write a method evenDigits that accepts an integer parameter n and that
         // returns the integer formed by removing the odd digits from n. The
@@ -403,23 +401,76 @@ public class Exercises {
         // -34512 is passed. Leading zeros in the result should be ignored and
         // if there are no even digits other than 0 in the number, the method
         // should return 0, as shown in the last three outputs.
-        String nString = String.valueOf(n);
-        System.out.println(nString);
 
-
-        if (nString.indexOf('-') == 0) {
-            return evenDigits()
-        } else if (// digit){
-
-        }
-
-
-
-
-
-
-        return -1;
+        int index = 0;
+        return evenDigits(n, index);
     }
 
+    private static int evenDigits(int n, int index) {
+        String nString = String.valueOf(n);
 
+        if (index >= nString.length()) { // end of number, even numbers
+            return n;
+        }
+
+        if (nString.charAt(index) == '-') { // digit is negative
+            index++;
+            return evenDigits(n, index);
+
+        } else if (nString.charAt(index) % 2 == 0
+                || nString.charAt(index) == 0) { // digit is even
+            index++;
+            return evenDigits(n, index);
+
+        } else {
+            // covert to StringBuilder to delete character, convert back to int
+            StringBuilder nStringB = new StringBuilder(nString);
+            nStringB.deleteCharAt(index);
+            nString = nStringB.toString();
+
+            if (nString.equals("")) { // end of number, no even numbers
+                return 0;
+
+            } else { // digit is odd
+                n = Integer.parseInt(nString);
+                return evenDigits(n, index);
+            }
+        }
+    }
+
+    public static void waysToClimb(int stairs) {
+        // In this problem, the scenario we are evaluating is the following:
+        // You're standing at the base of a staircase and are heading to the
+        // top. A small stride will move up one stair, and a large stride
+        // advances two. You want to count the number of ways to climb the
+        // entire staircase based on different combinations of large and small
+        // strides. For example, a staircase of three steps can be climbed in
+        // three different ways: three small strides, one small stride followed
+        // by one large stride, or one large followed by one small.
+        //
+        // Write a recursive method waysToClimb that takes a non-negative
+        // integer value representing a number of stairs and prints each unique
+        // way to climb a staircase of that height, taking strides of one or two
+        // stairs at a time. Your method should output each way to climb the
+        // stairs on its own line, using a 1 to indicate a small stride of 1
+        // stair, and a 2 to indicate a large stride of 2 stairs. For example,
+        // the call of waysToClimb(3) should produce the following output:
+
+        // [1, 1, 1]
+        // [1, 2]
+        // [2, 1]
+        // The call of waysToClimb(4) should produce the following output:
+        //
+        // [1, 1, 1, 1]
+        // [1, 1, 2]
+        // [1, 2, 1]
+        // [2, 1, 1]
+        // [2, 2]
+        // The order in which you output the possible ways to climb the stairs
+        // is not important, so long as you list the right overall set of ways.
+        // There are no ways to climb zero stairs, so your method should produce
+        // no output if 0 is passed. Do not use any loops in solving this
+        // problem.
+
+    }
 }
