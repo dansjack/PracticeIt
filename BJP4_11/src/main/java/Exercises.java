@@ -146,14 +146,14 @@ public class Exercises {
 
 
         // *** Ch. 11. Ex. 15 ***
-        //System.out.println(maxOccurrences(list_maxOccurences));
+        System.out.println(maxOccurrences(list_maxOccurences));
 
 
         // *** Ch. 11. Ex. 18 ***
         // System.out.println(reverse(map_reverse));
 
         // *** Ch. 11 Ex. 19 ***
-        System.out.println(rarest(map_rarest));
+        // System.out.println(rarest(map_rarest));
 
 
     }
@@ -242,6 +242,9 @@ public class Exercises {
 
         return mapIntersect;
     }
+
+
+
 
     public static int maxOccurrences(List<Integer> list) {
         // Ch 11. Ex. 15

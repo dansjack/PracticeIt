@@ -439,6 +439,8 @@ public class Exercises {
     }
 
     public static void waysToClimb(int stairs) {
+        // Ch. 12 Ex. 18
+
         // In this problem, the scenario we are evaluating is the following:
         // You're standing at the base of a staircase and are heading to the
         // top. A small stride will move up one stair, and a large stride
