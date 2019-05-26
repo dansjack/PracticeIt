@@ -410,15 +410,18 @@ public class Exercises {
         String nString = String.valueOf(n);
 
         if (index >= nString.length()) { // end of number, even numbers
+            // base case 1/2.
             return n;
         }
 
         if (nString.charAt(index) == '-') { // digit is negative
+            // recursive case 1/3.
             index++;
             return evenDigits(n, index);
 
         } else if (nString.charAt(index) % 2 == 0
                 || nString.charAt(index) == 0) { // digit is even
+            // recursive case 2/3.
             index++;
             return evenDigits(n, index);
 
@@ -429,9 +432,11 @@ public class Exercises {
             nString = nStringB.toString();
 
             if (nString.equals("")) { // end of number, no even numbers
+                // base case 2/2.
                 return 0;
 
             } else { // digit is odd
+                // recursive case 3/3
                 n = Integer.parseInt(nString);
                 return evenDigits(n, index);
             }
