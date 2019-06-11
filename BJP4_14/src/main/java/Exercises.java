@@ -7,9 +7,8 @@ public class Exercises {
     public static void main(String[] args) {
 
 
+        // BJP4 Exercise 14.1: splitStack
         /*
-        BJP4 Exercise 14.1: splitStack
-
         Stack<Integer> stack = new Stack<>();
         stack.push(5);
         stack.push(-10);
@@ -22,10 +21,8 @@ public class Exercises {
         System.out.println(stack);
         */
 
-
+        // BJP4 Exercise 14.2: stutter
         /*
-        BJP4 Exercise 14.2: stutter
-
         Stack<Integer> stack = new Stack<>();
         stack.push(3);
         stack.push(7);
@@ -37,9 +34,8 @@ public class Exercises {
         System.out.println(stack);
         */
 
+        // BJP4 Exercise 14.3: copyStack
         /*
-        BJP4 Exercise 14.3: copyStack
-
         Stack<Integer> stack = new Stack<>();
         stack.push(3);
         stack.push(7);
@@ -49,6 +45,112 @@ public class Exercises {
         System.out.println(copyStack(stack));
         System.out.println(stack);
         */
+
+        // BJP4 Exercise 14.4: collapse
+        /*
+         Stack<Integer> stack = new Stack<>();
+         stack.push(1);
+         stack.push(2);
+         stack.push(3);
+         stack.push(4);
+         stack.push(5);
+
+         System.out.println(stack);
+         collapse(stack);
+         System.out.println(stack);
+        */
+
+        // BJP4 Exercise 14.5: equals
+        /*
+        Stack<Integer> stack1 = new Stack<>();
+        stack1.push(1);
+        stack1.push(2);
+        stack1.push(3);
+        stack1.push(4);
+        stack1.push(5);
+        Stack<Integer> stack2 = new Stack<>();
+        stack2.push(1);
+        stack2.push(2);
+        stack2.push(3);
+        stack2.push(4);
+        stack2.push(5);
+        stack2.push(5);
+        Stack<Integer> stack3 = new Stack<>();
+        stack3.push(2);
+        stack3.push(3);
+        stack3.push(4);
+        stack3.push(5);
+        stack3.push(6);
+        stack3.push(6);
+
+        System.out.println(equals(stack1, stack2));
+        */
+
+        // BJP4 Exercise 14.6: rearrange
+        /*
+        Queue<Integer> queue = new LinkedList<>();
+        queue.add(3);
+        queue.add(5);
+        queue.add(4);
+        queue.add(17);
+        queue.add(6);
+        queue.add(83);
+        queue.add(1);
+        queue.add(84);
+        queue.add(16);
+        queue.add(37);
+
+        Queue<Integer> queue2 = new LinkedList<>();
+        queue2.add(4);
+        queue2.add(6);
+        queue2.add(84);
+        queue2.add(16);
+
+        queue2.add(3);
+        queue2.add(5);
+        queue2.add(17);
+        queue2.add(83);
+        queue2.add(1);
+        queue2.add(37);
+
+        System.out.println("Queue: " + queue);
+        System.out.println("Model Queue (After): " + queue2);
+        System.out.println("\n");
+        rearrange(queue);
+        System.out.println("Queue: " + queue);
+        */
+
+        // BJP4 Exercise 14.7: reverseHalf
+        /*
+        Queue<Integer> queue = new LinkedList<>();
+        queue.add(1);
+        queue.add(8);
+        queue.add(7);
+        queue.add(2);
+        queue.add(9);
+        queue.add(18);
+        queue.add(12);
+        queue.add(0);
+
+        System.out.println("Queue (before): " + queue);
+        reverseHalf(queue);
+        System.out.println("Queue (after): " + queue);
+        */
+
+        // BJP4 Exercise 14.8: isPalindrome
+        /*
+
+        */
+        Queue<Integer> queue = new LinkedList<>();
+        queue.add(3);
+        queue.add(8);
+        queue.add(17);
+        queue.add(9);
+        queue.add(17);
+        queue.add(8);
+        queue.add(3);
+
+
 
 
     }
@@ -171,10 +273,200 @@ public class Exercises {
         return stackCopy;
     }
 
+
     public static void collapse(Stack<Integer> stack) {
-        //
+        /*
+                BJP4 Exercise 14.4: collapse
+        Write a method collapse that takes a stack of
+        integers as a parameter and that collapses it
+        by replacing each successive pair of integers
+        with the sum of the pair. For example, suppose
+        a stack stores these values:
+
+        bottom [7, 2, 8, 9, 4, 13, 7, 1, 9, 10] top
+
+        The first pair should be collapsed into 9 (7 + 2),
+        the second pair should be collapsed into 17 (8 + 9),
+        the third pair should be collapsed into 17 (4 + 13)
+        and so on to yield:
+
+        bottom [9, 17, 17, 8, 19] top
+        If the stack stores an odd number of elements,
+        the final element is not collapsed. For example,
+        the stack:
+
+        bottom [1, 2, 3, 4, 5] top
+        Would collapse into:
+
+        bottom [3, 7, 5] top
+        With the 5 at the top of the stack unchanged.
+
+        You may use one queue as auxiliary storage.
+         */
+        Queue<Integer> queue = new LinkedList<>();
+
+
+        // store stack in queue
+        for (int i = stack.size(); i > 0; i--) {
+            queue.add(stack.pop());
+        }
+
+        // if queue has odd number of elements, push the top element to the
+        // stack
+        if (queue.size() % 2 != 0) {
+            stack.push(queue.remove());
+        }
+
+
+        // add the pairs of (remaining, if odd) elements until queue is empty
+        for (int i = queue.size() / 2; i > 0; i--) {
+            stack.push(queue.remove() + queue.remove());
+        }
+
+        // push the queue elements back into the stack (order is now reversed)
+        for (int i = queue.size(); i > 0; i--) {
+            stack.push(queue.remove());
+        }
+
+        // add the stack elements back to the queue, then push back to stack
+        // to get elements in the appropriate order
+        for (int i = stack.size(); i > 0; i--) {
+            queue.add(stack.pop());
+        }
+
+        for (int i = queue.size(); i > 0; i--) {
+            stack.push(queue.remove());
+        }
+
     }
 
 
+    public static boolean equals(Stack<Integer> stack1,
+                                 Stack<Integer> stack2) {
+        /*
+        returns true if the two stacks are equal and that returns false
+        otherwise.
 
+        To be considered equal, the two stacks would have to store
+        the same sequence of integer values in the same order.
+
+        Your method is to examine the two stacks but must return them to their
+        original state before terminating.
+         */
+        boolean flag = true;
+
+        if (stack1.size() != stack2.size()) {
+            return flag = false;
+        }
+
+        Stack<Integer> aux = new Stack<>();
+
+        while (!stack1.isEmpty()) {
+            // fill aux with els from the stacks
+            aux.push(stack1.pop());
+            aux.push(stack2.pop());
+        }
+
+        while (!aux.isEmpty()) {
+            int stack2El = aux.pop();
+            int stack1El = aux.pop();
+
+            // if stack els aren't equal, flag is false
+            if (stack1El != stack2El) {
+                flag = false;
+            }
+            // re-fill the stacks from aux
+            stack2.push(stack2El);
+            stack1.push(stack1El);
+        }
+
+        return flag;
+    }
+
+
+    public static void rearrange(Queue<Integer> queue) {
+        /*
+        Write a method rearrange that takes a queue of integers as a
+        parameter and rearranges the order of the values so that all
+        of the even values appear before the odd values and that
+        otherwise preserves the original order of the list.
+         */
+
+        Stack<Integer> aux = new Stack<>();
+        int oSize = queue.size();
+
+        // Keep evens, add odds to aux stack
+        for (int i = 0; i < oSize; i++) {
+            int elPeek = queue.peek();
+            if (elPeek % 2 == 0) {
+                queue.add(queue.remove());
+            } else {
+                aux.add(queue.remove());
+            }
+        }
+
+        // Add the odds back into the queue (backwards)
+        int auxSize = aux.size();
+        for (int i = 0; i < auxSize; i++) {
+            queue.add(aux.pop());
+        }
+
+        // Re-add odds to the aux stack
+        for (int i = 0; i < oSize; i++) {
+            int elPeek = queue.peek();
+            if (elPeek % 2 == 0) {
+                queue.add(queue.remove());
+            } else {
+                aux.add(queue.remove());
+            }
+        }
+
+        // Add the odds back into the queue (now in order)
+        for (int i = 0; i < auxSize; i++) {
+            queue.add(aux.pop());
+        }
+    }
+
+
+    public static void reverseHalf(Queue<Integer> queue) {
+        /*
+        Write a method reverseHalf that reverses the order of half
+        of the elements of a Queue of integers. Your method should
+        reverse the order of all the elements in odd-numbered
+        positions (position 1, 3, 5, etc.) assuming that the first
+        value in the queue has position 0.
+         */
+
+        int oSize = queue.size();
+        Stack<Integer> aux = new Stack<>();
+
+        // store els at odd-num positions in aux
+        for (int i = 0; i < oSize; i++) {
+            int el = queue.remove();
+
+            if (i % 2 != 0) {
+                aux.add(el);
+                queue.add(el);
+            } else {
+                queue.add(el);
+            }
+        }
+
+        // re-add els from aux to queue in reverse order
+        for (int i = 0; i < oSize; i++) {
+            int el = queue.remove();
+
+            if (i % 2 != 0) {
+                queue.add(aux.pop());
+            } else {
+                queue.add(el);
+            }
+        }
+    }
+
+
+    public static boolean isPalindrome(Queue<Integer> queue) {
+
+        return false;
+    }
 }
