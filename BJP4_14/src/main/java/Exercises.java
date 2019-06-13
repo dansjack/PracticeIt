@@ -139,16 +139,64 @@ public class Exercises {
 
         // BJP4 Exercise 14.8: isPalindrome
         /*
+        Queue<Integer> queuePal = new LinkedList<>();
+        queuePal.add(3);
+        queuePal.add(8);
+        queuePal.add(17);
+        queuePal.add(9);
+        queuePal.add(17);
+        queuePal.add(8);
+        queuePal.add(3);
 
+        System.out.println("Palindrome: " + queuePal);
+        System.out.println(isPalindrome(queuePal));
         */
-        Queue<Integer> queue = new LinkedList<>();
-        queue.add(3);
-        queue.add(8);
-        queue.add(17);
-        queue.add(9);
-        queue.add(17);
-        queue.add(8);
-        queue.add(3);
+
+        // BJP4 Exercise 14.9: switchPairs
+        /*
+        Stack<Integer> stack = new Stack<>();
+        stack.add(3);
+        stack.add(8);
+        stack.add(17);
+        stack.add(9);
+        stack.add(99);
+        stack.add(9);
+        stack.add(17);
+        stack.add(8);
+        stack.add(3);
+        stack.add(1);
+        stack.add(2);
+        stack.add(3);
+        stack.add(4);
+        stack.add(14);
+        stack.add(42);
+
+        System.out.println("Stack (before): " + stack);
+        switchPairs(stack);
+        System.out.println("Stack (after): " + stack);
+        */
+
+        // BJP4 Exercise 14.10: isConsecutive
+        /*
+        Stack<Integer> stack = new Stack<>();
+        stack.add(3);
+        stack.add(4);
+        stack.add(5);
+        stack.add(6);
+        stack.add(7);
+        stack.add(8);
+        stack.add(9);
+        stack.add(10);
+        stack.add(12);
+
+        System.out.println("Stack (before): " + stack);
+        System.out.println(isConsecutive(stack));
+        System.out.println("Stack (after): " + stack);
+        */
+
+        // BJP4 Exercise 14.11: reorder
+
+
 
 
 
@@ -466,7 +514,153 @@ public class Exercises {
 
 
     public static boolean isPalindrome(Queue<Integer> queue) {
+        /*
+        returns true if the numbers in the queue represent a
+        palindrome (and false otherwise). A sequence of numbers
+        is considered a palindrome if it is the same in reverse order.
 
-        return false;
+        You
+        may not make any assumptions about how many elements
+        are in the queue and your method must restore the queue
+        so that it stores the same sequence of values after the
+        call as it did before.
+         */
+
+        // if empty, return true
+        if (queue.isEmpty()) {
+            return true;
+        }
+
+        boolean flag = true;
+        int oSize = queue.size();
+        Stack<Integer> aux = new Stack<>();
+
+
+        // keep queue in place, store queue els in aux
+        for (int i = 0; i < oSize; i++) {
+            int qEl = queue.remove();
+            aux.add(qEl);
+            queue.add(qEl);
+        }
+
+        // Go through the Queue and Aux, checking for equality
+        while (!aux.isEmpty()) {
+            int queueRem = queue.remove();
+
+            if (aux.pop() != queueRem) {
+                flag = false;
+            }
+            queue.add(queueRem);
+
+        }
+
+        return flag;
     }
+
+
+    public static void switchPairs(Stack<Integer> stack) {
+        /*
+        switches successive pairs of numbers starting at
+        the bottom of the stack.
+
+        If there are an odd number of values in the stack,
+        the value at the top of the stack is not moved.
+
+        Do not make assumptions about how many elements
+        are in the stack.
+         */
+        int oSize = stack.size();
+        int top = 0;
+        boolean flag = false;
+        Queue<Integer> aux = new LinkedList<>();
+
+        // add stack items to aux (now reversed)
+        while (!stack.isEmpty()) {
+            aux.add(stack.pop());
+        }
+
+        // re-add stack items from aux (still reversed)
+        while (!aux.isEmpty()) {
+            stack.add(aux.remove());
+        }
+
+        // re-add stack items to aux (now in order)
+        while (!stack.isEmpty()) {
+            aux.add(stack.pop());
+        }
+
+        int aSize = aux.size();
+
+        // re-add stack items to stack (in order)
+        for (int i = aSize/2; i >= 0; i--) {
+            if (oSize % 2 != 0 && i == 0) { // stack has odd num of els
+                stack.add(aux.remove());
+            } else if (i > 0){ // stack has even num of els
+                int auxRem = aux.remove();
+                stack.add(aux.peek());
+                stack.add(auxRem);
+                aux.remove();
+            }
+        }
+    }
+
+
+    public static boolean isConsecutive(Stack<Integer> stack) {
+        /*
+        returns whether or not the stack contains a sequence
+        of consecutive integers starting from the bottom of
+        the stack (returning true if it does, returning false
+        if it does not). Consecutive integers are integers
+        that come one after the other, as in 5, 6, 7, 8, 9, etc.
+
+        Notice that we look at the numbers starting at the
+        bottom of the stack. The following sequence of values
+        would be consecutive except for the fact that it appears
+        in reverse order, so the method would return false:
+
+        bottom [3, 2, 1] top
+
+        Your method must restore the stack so that it stores
+        the same sequence of values after the call as it did
+        before.
+         */
+
+        Queue<Integer> aux = new LinkedList<>();
+        boolean flag = true;
+
+        if (stack.size() < 2) {
+            return true;
+        }
+
+        // stack to aux (reversed)
+        while (!stack.isEmpty()) {
+            aux.add(stack.pop());
+        }
+
+        // aux to stack (still reversed)
+        while (!aux.isEmpty()) {
+            stack.add(aux.remove());
+        }
+
+        // stack to aux (in original order)
+        while (!stack.isEmpty()) {
+            aux.add(stack.pop());
+        }
+
+        // aux to stack (in original order)
+        int oSize = aux.size();
+        for (int i = oSize; i > 0; i--) {
+            int curr = aux.remove();
+            stack.add(curr);
+
+            // flag if a pair of nums aren't consecutive
+            if (i > 1 && curr + 1 != aux.peek()) {
+                flag = false;
+            }
+        }
+
+        return flag;
+    }
+
+
 }
