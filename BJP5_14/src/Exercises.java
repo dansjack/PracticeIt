@@ -329,6 +329,29 @@ public class Exercises {
         q2s(aux, s);
     }
 
+    public static void reverseFirstK(int k, Queue<Integer> q) {
+        if (k < 1) {
+            return;
+        }
+
+        if (q == null || q.size() < k) {
+            throw new IllegalArgumentException();
+        }
+
+        Stack<Integer> aux = new Stack<>();
+        int size = q.size();
+
+        for (int i = 0; i < k; i++) {
+            aux.push(q.remove());
+        }
+
+        s2q(aux, q);
+
+        for (int i = 0; i < size - k; i++) {
+            q.add(q.remove());
+        }
+    }
+
     private static void q2s(Queue<Integer> q, Stack<Integer> s) {
         int size = q.size();
         for (int i = 0; i < size; i++) {
