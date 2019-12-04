@@ -278,5 +278,34 @@ public class Exercises {
         }
     }
 
+    public static void shift(Stack<Integer> s, int n) {
+        Queue<Integer> aux = new LinkedList<>();
+        int size = s.size();
+
+        for (int i = 0; i < size; i++) { // reverse in q
+            aux.add(s.pop());
+        }
+
+        for (int i = 0; i < size; i++) { // reverse in s
+            s.push(aux.remove());
+        }
+
+        for (int i = 0; i < size; i++) { // in q
+            aux.add(s.pop());
+        }
+
+        for (int i = 0; i < n; i++) { // split
+            s.push(aux.remove());
+        }
+
+        for (int i = 0; i < n; i++) {
+            aux.add(s.pop());
+        }
+
+        for (int i = 0; i < size; i++) { // in s
+            s.push(aux.remove());
+        }
+    }
+
 
 }
