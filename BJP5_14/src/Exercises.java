@@ -5,20 +5,22 @@ import java.util.Stack;
 public class Exercises {
     public static void main(String[] args) {
         Stack<Integer> s1 = new Stack<>();
-        s1.push(3);
         s1.push(4);
-        s1.push(5);
-        s1.push(6);
-        s1.push(7);
+        s1.push(20);
+        s1.push(15);
+        s1.push(15);
         s1.push(8);
-        s1.push(9);
+        s1.push(5);
+        s1.push(7);
+        s1.push(12);
+        s1.push(3);
         s1.push(10);
-
-
+        s1.push(5);
+        s1.push(0);
 
         System.out.println(s1);
-        // isConsecutive(s1);
-        System.out.println(isConsecutive(s1));
+        expunge(s1);
+        System.out.println(s1);
     }
 
     public static void splitStack(Stack<Integer> stack) {
@@ -304,6 +306,40 @@ public class Exercises {
 
         for (int i = 0; i < size; i++) { // in s
             s.push(aux.remove());
+        }
+    }
+
+    public static void expunge(Stack<Integer> s) {
+        if (s.size() < 1) {
+            return;
+        }
+        Queue<Integer> aux = new LinkedList<>();
+        int size = s.size();
+        int flag = s.peek();
+
+        for (int i = 0; i < size; i++) {
+            int curr = s.pop();
+            if (curr >= flag) {
+                flag = curr;
+                aux.add(curr);
+            }
+        }
+        q2s(aux, s);
+        s2q(s, aux);
+        q2s(aux, s);
+    }
+
+    private static void q2s(Queue<Integer> q, Stack<Integer> s) {
+        int size = q.size();
+        for (int i = 0; i < size; i++) {
+            s.push(q.remove());
+        }
+    }
+
+    private static void s2q(Stack<Integer> s, Queue<Integer> q) {
+        int size = s.size();
+        for (int i = 0; i < size; i++) {
+            q.add(s.pop());
         }
     }
 
