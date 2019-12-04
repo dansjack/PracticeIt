@@ -366,5 +366,33 @@ public class Exercises {
         }
     }
 
+    public static Boolean isSorted(Stack<Integer> s) {
+        if (s.size() < 2) {
+            return true;
+        }
+        int size = s.size();
+        Queue<Integer> aux = new LinkedList<>();
+        Boolean flag = true;
+
+
+        for (int i = 0; i < size; i++) {
+            if (i == size - 1) {
+                aux.add(s.pop());
+                break;
+            }
+            int curr = s.pop();
+            int next = s.peek();
+            if (curr > next) {
+                flag = false;
+            }
+            aux.add(curr);
+        }
+
+        q2s(aux, s);
+        s2q(s, aux);
+        q2s(aux, s);
+        return flag;
+    }
+
 
 }
