@@ -129,6 +129,22 @@ public class LinkedIntList {
     return result;
   }
 
+  // pre: list in sorted order
+  public int countDuplicates() {
+    int result = 0;
+    if (front == null) {
+      return result;
+    }
+    ListNode current = front;
+    while (current.next != null) {
+      if (current.data == current.next.data) {
+        result++;
+      }
+      current = current.next;
+    }
+    return result;
+  }
+
   // Removes and returns the first value
   // Throws a NoSuchElementException inn empty list
   public int remove() {
