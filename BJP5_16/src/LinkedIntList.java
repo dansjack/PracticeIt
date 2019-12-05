@@ -29,6 +29,22 @@ public class LinkedIntList {
     current.data = value;
   }
 
+  public int min() {
+    if (front == null) {
+      throw new NoSuchElementException();
+    }
+
+    int m = front.data;
+    ListNode current = front;
+    while (current != null) {
+      if (current.data < m) {
+        m = current.data;
+      }
+      current = current.next;
+    }
+    return m;
+  }
+
   public void add(int value) {
     if (front == null) {
       // adding to an empty list
