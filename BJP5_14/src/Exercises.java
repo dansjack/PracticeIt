@@ -21,23 +21,54 @@ public class Exercises {
         s1.push(-8);
         s1.push(4);
         Queue<Integer> q = new LinkedList<>();
+        q.add(1);
+        q.add(2);
+        q.add(3);
+        q.add(4);
+        q.add(5);
+        q.add(6);
+        q.add(7);
+        q.add(8);
+        q.add(9);
         q.add(10);
-        q.add(50);
-        q.add(19);
-        q.add(54);
-        q.add(30);
-        q.add(67);
 
 
         // System.out.println(s1);
         // compressDuplicates(s1);
         // System.out.println(s1);
 
-        System.out.println(s1);
-        System.out.println(removeMin(s1));
-        System.out.println(s1);
-        System.out.println(removeMin(s1));
-        System.out.println(s1);
+        System.out.println(q);
+        interleave(q);
+        System.out.println(q);
+    }
+
+    public static void interleave(Queue<Integer> q) {
+        if (q.size() % 2 != 0) {
+            throw new IllegalArgumentException();
+        }
+
+        Stack<Integer> aux = new Stack<>();
+        int size = q.size();
+        for (int i = 0; i < size; i+=2) {
+            aux.push(q.remove());
+        }
+
+        for (int i = 0; i < size; i+=2) {
+            q.add(aux.pop());
+        }
+
+        for (int i = 0; i < size; i+=2) {
+            q.add(q.remove());
+        }
+
+        for (int i = 0; i < size; i+=2) {
+            aux.push(q.remove());
+        }
+
+        for (int i = 0; i < size; i+=2) {
+            q.add(aux.pop());
+            q.add(q.remove());
+        }
     }
 
     public static int removeMin(Stack<Integer> s) {
