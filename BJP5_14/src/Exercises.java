@@ -5,22 +5,27 @@ import java.util.Stack;
 public class Exercises {
     public static void main(String[] args) {
         Stack<Integer> s1 = new Stack<>();
-        s1.push(4);
-        s1.push(20);
-        s1.push(15);
-        s1.push(15);
-        s1.push(8);
-        s1.push(5);
-        s1.push(7);
-        s1.push(12);
+        s1.push(2);
+        s1.push(2);
+        s1.push(2);
+        s1.push(2);
+        s1.push(2);
+        s1.push(-5);
+        s1.push(-5);
         s1.push(3);
-        s1.push(10);
-        s1.push(5);
+        s1.push(3);
+        s1.push(3);
+        s1.push(3);
+        s1.push(4);
+        s1.push(4);
+        s1.push(1);
         s1.push(0);
+        s1.push(17);
+        s1.push(17);
 
         System.out.println(s1);
-        expunge(s1);
-        System.out.println(s1);
+        compressDuplicates(s1);
+        // System.out.println(s1);
     }
 
     public static void splitStack(Stack<Integer> stack) {
@@ -392,6 +397,31 @@ public class Exercises {
         s2q(s, aux);
         q2s(aux, s);
         return flag;
+    }
+
+    public static void compressDuplicates(Stack<Integer> s) {
+        if (s.isEmpty()) {
+            return;
+        }
+        Queue<Integer> aux = new LinkedList<>();
+        int size = s.size();
+        int count = 1;
+
+        for (int i = 0; i < size - 1; i++) {
+            int curr = s.pop();
+            int next = s.peek();
+            // if (nextnull) {
+            //
+            // }
+            if (curr == next) {
+                count++;
+            } else {
+                aux.add(curr);
+                aux.add(count);
+                count = 1;
+            }
+        }
+        System.out.println(aux);
     }
 
 
