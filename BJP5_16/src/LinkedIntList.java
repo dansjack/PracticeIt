@@ -98,6 +98,23 @@ public class LinkedIntList {
     return current.data;
   }
 
+  public boolean isSorted() {
+    if (front == null) {
+      return true;
+    }
+    boolean result = true;
+    ListNode current = front;
+
+    while (current.next != null) {
+      if (current.data > current.next.data) {
+        result = false;
+        break;
+      }
+      current = current.next;
+    }
+    return result;
+  }
+
   // Removes and returns the first value
   // Throws a NoSuchElementException inn empty list
   public int remove() {
