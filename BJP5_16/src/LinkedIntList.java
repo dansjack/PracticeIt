@@ -145,6 +145,22 @@ public class LinkedIntList {
     return result;
   }
 
+  public boolean hasTwoConsecutive() {
+    boolean result = false;
+    if (front == null) {
+      return result;
+    }
+    ListNode current = front;
+    while (current.next != null) {
+      if (current.data == current.next.data - 1) {
+        result = true;
+        break;
+      }
+      current = current.next;
+    }
+    return result;
+  }
+
   // Removes and returns the first value
   // Throws a NoSuchElementException inn empty list
   public int remove() {
