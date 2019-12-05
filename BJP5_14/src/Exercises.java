@@ -6,26 +6,68 @@ public class Exercises {
     public static void main(String[] args) {
         Stack<Integer> s1 = new Stack<>();
         s1.push(2);
-        s1.push(2);
-        s1.push(2);
-        s1.push(2);
-        s1.push(2);
-        s1.push(-5);
-        s1.push(-5);
+        s1.push(8);
         s1.push(3);
+        s1.push(19);
+        s1.push(7);
         s1.push(3);
+        s1.push(2);
         s1.push(3);
-        s1.push(3);
+        s1.push(2);
+        s1.push(7);
+        s1.push(12);
+        s1.push(-8);
         s1.push(4);
-        s1.push(4);
-        s1.push(1);
-        s1.push(0);
-        s1.push(17);
-        s1.push(17);
+        Queue<Integer> q = new LinkedList<>();
+        q.add(10);
+        q.add(50);
+        q.add(19);
+        q.add(54);
+        q.add(30);
+        q.add(67);
+
+
+        // System.out.println(s1);
+        // compressDuplicates(s1);
+        // System.out.println(s1);
 
         System.out.println(s1);
-        compressDuplicates(s1);
-        // System.out.println(s1);
+        int min = removeMin(s1);
+        System.out.println(s1);
+    }
+
+    private static int removeMin(Stack<Integer> s1) {
+    }
+
+    public static void mirrorHalves(Queue<Integer> q) {
+        if (q == null || q.size() % 2 != 0) {
+            throw new IllegalArgumentException();
+        } else if (q.isEmpty()) {
+            return;
+        }
+
+        Stack<Integer> aux = new Stack<>();
+        int size = q.size();
+
+        for (int i = 0; i < size / 2; i++) {
+            int curr = q.remove();
+            q.add(curr);
+            aux.push(curr);
+        }
+
+        for (int i = 0; i < size / 2; i++) {
+            q.add(aux.pop());
+        }
+
+        for (int i = 0; i < size / 2; i++) {
+            int curr = q.remove();
+            q.add(curr);
+            aux.push(curr);
+        }
+
+        for (int i = 0; i < size / 2; i++) {
+            q.add(aux.pop());
+        }
     }
 
     public static void splitStack(Stack<Integer> stack) {
@@ -407,12 +449,14 @@ public class Exercises {
         int size = s.size();
         int count = 1;
 
-        for (int i = 0; i < size - 1; i++) {
+        for (int i = 0; i < size; i++) {
             int curr = s.pop();
+            if (s.isEmpty()) {
+                aux.add(curr);
+                aux.add(count);
+                break;
+            }
             int next = s.peek();
-            // if (nextnull) {
-            //
-            // }
             if (curr == next) {
                 count++;
             } else {
@@ -421,8 +465,22 @@ public class Exercises {
                 count = 1;
             }
         }
-        System.out.println(aux);
+
+        size = aux.size();
+        for (int i = 0; i < size; i++) {
+            s.push(aux.remove());
+        }
+
+        for (int i = 0; i < size; i++) {
+            aux.add(s.pop());
+        }
+
+        for (int i = 0; i < size; i++) {
+            s.push(aux.remove());
+        }
     }
+
+
 
 
 }
