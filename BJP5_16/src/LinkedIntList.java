@@ -115,6 +115,20 @@ public class LinkedIntList {
     return result;
   }
 
+  public int lastIndexOf(int value) {
+    ListNode current = front;
+    int result = -1;
+    int index = 0;
+    while (current != null) {
+      if (current.data == value) {
+        result = index;
+      }
+      index++;
+      current = current.next;
+    }
+    return result;
+  }
+
   // Removes and returns the first value
   // Throws a NoSuchElementException inn empty list
   public int remove() {
