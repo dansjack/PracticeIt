@@ -2,6 +2,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Stack;
 
+@SuppressWarnings("DuplicatedCode")
 public class Exercises {
     public static void main(String[] args) {
         Stack<Integer> s1 = new Stack<>();
@@ -16,6 +17,7 @@ public class Exercises {
         s1.push(2);
         s1.push(7);
         s1.push(12);
+        s1.push(-8);
         s1.push(-8);
         s1.push(4);
         Queue<Integer> q = new LinkedList<>();
@@ -32,11 +34,44 @@ public class Exercises {
         // System.out.println(s1);
 
         System.out.println(s1);
-        int min = removeMin(s1);
+        System.out.println(removeMin(s1));
+        System.out.println(s1);
+        System.out.println(removeMin(s1));
         System.out.println(s1);
     }
 
-    private static int removeMin(Stack<Integer> s1) {
+    public static int removeMin(Stack<Integer> s) {
+        Queue<Integer> aux = new LinkedList<>();
+        int size = s.size();
+        int minimum = s.peek();
+        for (int i = 0; i < size; i++) {
+            int curr = s.pop();
+            if (curr < minimum) {
+                minimum = curr;
+            }
+            aux.add(curr);
+        }
+
+        for (int i = 0; i < size; i++) {
+            int curr = aux.remove();
+            if (curr != minimum) {
+                aux.add(curr);
+            }
+        }
+
+        size = aux.size();
+        for (int i = 0; i < size; i++) {
+            s.push(aux.remove());
+        }
+
+        for (int i = 0; i < size; i++) {
+            aux.add(s.pop());
+        }
+
+        for (int i = 0; i < size; i++) {
+            s.push(aux.remove());
+        }
+        return minimum;
     }
 
     public static void mirrorHalves(Queue<Integer> q) {
@@ -152,7 +187,7 @@ public class Exercises {
             aux.push(s2.pop());
         }
 
-        Boolean flag = true;
+        boolean flag = true;
         for (int i = 0; i < size; i++) {
             int curr2 = aux.pop();
             int curr1 = aux.pop();
@@ -228,7 +263,7 @@ public class Exercises {
             aux.push(curr);
         }
 
-        Boolean flag = true;
+        boolean flag = true;
 
         for (int i = 0; i < size; i++) {
             int curr = q.remove();
@@ -287,7 +322,7 @@ public class Exercises {
             aux.add(s.pop());
         }
 
-        Boolean flag = true;
+        boolean flag = true;
 
         for (int i = 0; i < size; i++) {
             int curr = aux.remove();
@@ -419,7 +454,7 @@ public class Exercises {
         }
         int size = s.size();
         Queue<Integer> aux = new LinkedList<>();
-        Boolean flag = true;
+        boolean flag = true;
 
 
         for (int i = 0; i < size; i++) {
