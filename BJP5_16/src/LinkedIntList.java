@@ -161,6 +161,25 @@ public class LinkedIntList {
     return result;
   }
 
+  public int deleteBack() {
+    if (front == null) {
+      throw new NoSuchElementException();
+    } else if (front.next == null) {
+      int last = front.data;
+      front = null;
+      return last;
+    }
+    ListNode current = front;
+    int last = current.data;
+
+    while (current.next.next != null) {
+      current = current.next;
+    }
+    last = current.next.data;
+    current.next = null;
+    return last;
+  }
+
   // Removes and returns the first value
   // Throws a NoSuchElementException inn empty list
   public int remove() {
