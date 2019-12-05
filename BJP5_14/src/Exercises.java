@@ -6,20 +6,12 @@ import java.util.Stack;
 public class Exercises {
     public static void main(String[] args) {
         Stack<Integer> s1 = new Stack<>();
-        s1.push(2);
-        s1.push(8);
-        s1.push(3);
+        s1.push(27);
+        s1.push(5);
+        s1.push(42);
+        s1.push(-11);
+        s1.push(0);
         s1.push(19);
-        s1.push(7);
-        s1.push(3);
-        s1.push(2);
-        s1.push(3);
-        s1.push(2);
-        s1.push(7);
-        s1.push(12);
-        s1.push(-8);
-        s1.push(-8);
-        s1.push(4);
         Queue<Integer> q = new LinkedList<>();
         q.add(1);
         q.add(2);
@@ -33,13 +25,50 @@ public class Exercises {
         q.add(10);
 
 
-        // System.out.println(s1);
-        // compressDuplicates(s1);
+        System.out.println(s1);
+        maxToTop(s1);
         // System.out.println(s1);
 
-        System.out.println(q);
-        interleave(q);
-        System.out.println(q);
+        // System.out.println(q);
+        // interleave(q);
+        // System.out.println(q);
+    }
+
+    public static void maxToTop(Stack<Integer> s) {
+        if (s.isEmpty()) {
+            return;
+        }
+        Queue<Integer> aux = new LinkedList<>();
+        int size = s.size();
+        int max = s.peek();
+
+        for (int i = 0; i < size; i++) {
+            int curr = s.pop();
+            if (curr > max) {
+                max = curr;
+            }
+            aux.add(curr);
+        }
+
+        for (int i = 0; i < size; i++) {
+            int curr = aux.remove();
+            if (curr != max) {
+                aux.add(curr);
+            }
+        }
+
+        for (int i = 0; i < size - 1; i++) {
+            s.push(aux.remove());
+        }
+
+        for (int i = 0; i < size - 1; i++) {
+            aux.add(s.pop());
+        }
+
+        aux.add(max);
+        for (int i = 0; i < size; i++) {
+            s.push(aux.remove());
+        }
     }
 
     public static void interleave(Queue<Integer> q) {
