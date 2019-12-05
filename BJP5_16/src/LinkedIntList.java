@@ -21,6 +21,14 @@ public class LinkedIntList {
     current.next = back;
   }
 
+  public void set(int index, int value) {
+    ListNode current = front;
+    for (int i = 0; i < index; i++) {
+      current = current.next;
+    }
+    current.data = value;
+  }
+
   public void add(int value) {
     if (front == null) {
       // adding to an empty list
