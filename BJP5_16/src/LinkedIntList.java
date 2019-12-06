@@ -16,7 +16,29 @@ public class LinkedIntList {
   }
 
   public void compress(int n) {
+    // get size
     ListNode current = front;
+    int size = 0;
+    while (current != null) {
+      size++;
+      current = current.next;
+    }
+    current = front;
+
+    // if n greater than size
+    if (n >= size) {
+      int sum = current.data;
+      while (current.next != null) {
+        sum += current.next.data;
+        current = current.next;
+      }
+      front.data = sum;
+      front.next = null;
+      return;
+    }
+
+    // sum first n elements
+    current = front;
     int sum = current.data;
     for (int i = 1; i < n; i++) {
       current = current.next;
@@ -24,30 +46,35 @@ public class LinkedIntList {
     }
     current.data = sum;
     front = current;
+    size -= n;
 
-    // f -> [6] -> [18] -> [1] -> [30] -> [-4] -> null
-    ListNode temp = current;
-    current = current.next;
-    sum = current.data;
-    for (int i = 1; i < n; i++) {
+    // sum next n elements while remainder of list is greater to
+    // or equal than n
+    while (size >= n) {
+      ListNode temp = current;
       current = current.next;
-      sum += current.data;
+      sum = current.data;
+      for (int i = 1; i < n; i++) {
+        current = current.next;
+        sum += current.data;
+      }
+      size -= n;
+      current.data = sum;
+      temp.next = current;
     }
-    current.data = sum;
-    temp.next = current;
 
-    // f -> [6] -> [19] -> [30] -> [-4] -> null
-    current = current.next;
-    sum = current.data;
-    for (int i = 1; i < n; i++) {
+    // sum any remaining elements
+    if (size > 0) {
+      ListNode temp = current;
       current = current.next;
-      temp = temp.next;
-      sum += current.data;
+      sum = current.data;
+      while (current.next != null) {
+        current = current.next;
+        sum += current.data;
+      }
+      current.data = sum;
+      temp.next = current;
     }
-    current.data = sum;
-    temp.next = current;
-
-    // f -> [6] -> [19] -> [26] -> null
   }
 
   public void stretch(int n) {
