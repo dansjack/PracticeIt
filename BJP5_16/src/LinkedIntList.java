@@ -25,33 +25,29 @@ public class LinkedIntList {
     current.data = sum;
     front = current;
 
-
-    ListNode temp = current.next;
-    System.out.println("1: " + current);
-    System.out.println("1: " + temp);
     // f -> [6] -> [18] -> [1] -> [30] -> [-4] -> null
-    sum = temp.data;
-    for (int i = 1; i < n; i++) {
-      temp = temp.next;
-      sum += temp.data;
-    }
-    temp.data = sum;
-    current.next = temp;
-    // f -> [6] -> [19] -> [30] -> [-4] -> null
-    current = current.next.next;
+    ListNode temp = current;
+    current = current.next;
     sum = current.data;
-    System.out.println("2: " + current);
-    System.out.println("2: " + temp);
     for (int i = 1; i < n; i++) {
       current = current.next;
       sum += current.data;
     }
-
     current.data = sum;
     temp.next = current;
 
-    System.out.println("3: " + current);
-    System.out.println("3: " + temp);
+    // f -> [6] -> [19] -> [30] -> [-4] -> null
+    current = current.next;
+    sum = current.data;
+    for (int i = 1; i < n; i++) {
+      current = current.next;
+      temp = temp.next;
+      sum += current.data;
+    }
+    current.data = sum;
+    temp.next = current;
+
+    // f -> [6] -> [19] -> [26] -> null
   }
 
   public void stretch(int n) {
