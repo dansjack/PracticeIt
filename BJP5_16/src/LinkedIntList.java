@@ -7,6 +7,14 @@ public class LinkedIntList {
     front = null; // empty list
   }
 
+  public void stutter() {
+    ListNode current = front;
+    while (current != null) {
+      current.next = new ListNode(current.data, current.next);
+      current = current.next.next;
+    }
+  }
+
   public void firstLast() {
     if (front == null || front.next == null) {
       return;
@@ -180,6 +188,35 @@ public class LinkedIntList {
     return last;
   }
 
+  public void switchPairs() {
+    // Not my original code, had to get answer from here:
+    // https://stackoverflow.com/questions/21491635/swap-pair-elements-in-linked-list-implemented-in-java
+    ListNode current = front.next;
+    front.next = current.next;
+    current.next = front;
+    front = current;
+    current = current.next;
+
+    while (current.next != null && current.next.next != null) {
+      ListNode temp = current.next.next;
+      current.next.next = temp.next;
+      temp.next = current.next;
+      current.next = temp;
+      current = temp.next;
+      System.out.println(current);
+
+    }
+
+
+
+
+
+
+
+
+    // [7] -> [3] -> [9] -> [4] /
+  }
+
   // Removes and returns the first value
   // Throws a NoSuchElementException inn empty list
   public int remove() {
@@ -207,9 +244,6 @@ public class LinkedIntList {
       current.next = current.next.next;
     }
   }
-
-
-
 
   public String toString() {
     if (front == null) { // empty list
