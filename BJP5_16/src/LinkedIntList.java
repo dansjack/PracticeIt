@@ -15,6 +15,20 @@ public class LinkedIntList {
     }
   }
 
+  public void stretch(int n) {
+    if (n < 1) {
+      front = null;
+    }
+    ListNode current = front;
+    while (current != null) {
+      for (int i = 1; i < n; i++) {
+        current.next = new ListNode(current.data, current.next);
+        current = current.next;
+      }
+      current = current.next;
+    }
+  }
+
   public void firstLast() {
     if (front == null || front.next == null) {
       return;

@@ -1,14 +1,14 @@
 public class Exercises {
     public static void main(String[] args) {
         LinkedIntList list = new LinkedIntList();
-        list.add(1);
-        list.add(8);
-        list.add(19);
+        list.add(18);
+        list.add(7);
         list.add(4);
-        list.add(17);
+        list.add(24);
+        list.add(11);
 
         System.out.println("list before: " + list);
-        list.stutter();
+        list.stretch(2);
         System.out.println("list after: " + list);
 
     }
