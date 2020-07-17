@@ -21,7 +21,7 @@ public class Exercises {
         list_countCommon.add(2);
         list_countCommon.add(-1);
         list_countCommon.add(7);
-        list_countCommon.add(15);
+        list_countCommon.add(15)
         list_countCommon.add(36);
 
         Set<String> set_maxLength = new HashSet<>();
